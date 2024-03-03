@@ -4,6 +4,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from 'src/schemas/user.schema';
 import { Model } from 'mongoose';
+import { jwtConstants } from 'src/auth/constants';
 
 @Injectable()
 export class UserService {
@@ -29,6 +30,15 @@ export class UserService {
     } catch (error) {
       throw new BadRequestException(error);
     }
+  }
+
+  async findByEmail(email: string) {
+    console.log(jwtConstants.secret)
+    const user = await this.userModel.findOne({ email: email });
+    // if (!user) {
+    //   throw new BadRequestException({ message: "User not found" })
+    // }
+    return user;
   }
 
   async update(id: string, updateUserDto: UpdateUserDto) {
