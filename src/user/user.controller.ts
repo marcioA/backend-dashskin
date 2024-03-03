@@ -20,16 +20,19 @@ export class UserController {
   }
 
   @Get(':id')
+  @UseGuards(AuthGuard)
   findOne(@Param('id') id: string) {
     return this.userService.findOne(id);
   }
 
   @Patch(':id')
+  @UseGuards(AuthGuard)
   update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
     return this.userService.update(id, updateUserDto);
   }
 
   @Delete(':id')
+  @UseGuards(AuthGuard)
   remove(@Param('id') id: string) {
     return this.userService.remove(id);
   }
